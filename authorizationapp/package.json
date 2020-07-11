@@ -1,0 +1,76 @@
+{
+  "name": "authorizationapp",
+  "version": "1.0.0",
+  "description": "authorizationapp",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run prettier:check && npm run eslint",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run clean && npm run build",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t authorizationapp .",
+    "docker:run": "docker run -p 3000:3000 -d authorizationapp",
+    "migrate": "node ./dist/migrate",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run build",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/authentication": "^4.2.9",
+    "@loopback/authentication-passport": "^2.1.9",
+    "@loopback/boot": "^2.3.5",
+    "@loopback/core": "^2.9.1",
+    "@loopback/openapi-v3": "^3.4.5",
+    "@loopback/repository": "^2.9.0",
+    "@loopback/rest": "^5.2.0",
+    "@loopback/rest-explorer": "^2.2.6",
+    "@loopback/service-proxy": "^2.3.4",
+    "axios": "^0.19.2",
+    "jsonwebtoken": "^8.5.1",
+    "loopback-connector-mongodb": "^5.2.3",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^6.1.0",
+    "@loopback/eslint-config": "^8.0.3",
+    "@loopback/testlab": "^3.2.0",
+    "@types/node": "^10.17.26",
+    "@types/passport": "^1.0.4",
+    "@types/passport-jwt": "^3.0.3",
+    "eslint": "^7.3.1",
+    "source-map-support": "^0.5.19",
+    "typescript": "~3.9.5"
+  }
+}
